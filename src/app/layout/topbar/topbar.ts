@@ -1,10 +1,10 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Output, PLATFORM_ID } from '@angular/core';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { TieredMenuModule } from 'primeng/tieredmenu';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-topbar',
@@ -14,9 +14,13 @@ import { CommonModule } from '@angular/common';
   styleUrl: './topbar.css',
 })
 export class Topbar {
+  isBrowser = false;
   @Output() themeToggle = new EventEmitter<void>();
   @Output() langChange  = new EventEmitter<string>();
 
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
   items: MenuItem[] = [
     { label: 'Hub', routerLink: '/' },
     { label: 'Awrād', routerLink: '/awrad' },

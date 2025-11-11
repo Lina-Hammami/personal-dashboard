@@ -34,6 +34,8 @@
     "@google/genai": "^1.29.0",
     "@ngx-translate/core": "^17.0.0",
     "@ngx-translate/http-loader": "^17.0.0",
+    "@primeng/themes": "^20.3.0",
+    "@primeuix/themes": "^1.2.5",
     "dayjs": "^1.11.19",
     "express": "^5.1.0",
     "primeflex": "^4.0.0",

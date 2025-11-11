@@ -11,7 +11,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { HttpLoaderFactory } from './core/i18n/translate-loader.factory';
-
+import { providePrimeNG } from 'primeng/config';
+import Aura from '@primeuix/themes/aura';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,6 +24,11 @@ export const appConfig: ApplicationConfig = {
         loader: { provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient] }
       })
     ),
+    providePrimeNG({
+      theme: {
+        preset: Aura,
+        options: { darkModeSelector: '.app-dark' }
+      }}),
     provideZoneChangeDetection(),
     MessageService,
     DialogService

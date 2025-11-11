@@ -22,13 +22,11 @@
               }
             ],
             "styles": [
+              "primeflex/primeflex.css",
+              "primeicons/primeicons.css",
               "src/styles.css"
             ],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            "outputMode": "static"
           },
           "configurations": {
             "production": {
@@ -80,10 +78,8 @@
               }
             ],
             "styles": [
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-              "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/primeflex/primeflex.css",
-              "node_modules/primeicons/primeicons.css",
+              "primeflex/primeflex.css",
+              "primeicons/primeicons.css",
               "src/styles.css"
             ]
           }
