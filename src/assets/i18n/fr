@@ -1,0 +1,10 @@
+{
+  "app": {
+    "title": "mon-ac-lists",
+    "hub": "Hub",
+    "awrad": "Awrād",
+    "quran": "Progres Mémorisation Qur’an ",
+    "toggleDark": "Mode sombre",
+    "language": "Langue"
+  }
+}

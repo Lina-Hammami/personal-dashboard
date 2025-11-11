@@ -1,0 +1,10 @@
+{
+  "app": {
+    "title": "my-ac-lists",
+    "hub": "Hub",
+    "awrad": "Awrād",
+    "quran": "Qur’an Memorisation Progress",
+    "toggleDark": "Toggle Dark Mode",
+    "language": "Language"
+  }
+}
