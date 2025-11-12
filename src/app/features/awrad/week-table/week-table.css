@@ -1,0 +1,7 @@
+.p-table th:first-child,
+.p-table td:first-child {
+  position: sticky;
+  left: 0;
+  background: var(--surface-section);
+  z-index: 2;
+}

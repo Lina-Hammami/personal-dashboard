@@ -1,30 +1,60 @@
-<div class="flex items-center gap-2 mb-2">
-    <input pInputText type="text" placeholder="Filter by name..." [(ngModel)]="filter"/>
+<div class="flex items-center justify-between mb-3 flex-wrap gap-2">
+  <div class="flex items-center gap-2">
+    <input
+      pInputText
+      type="text"
+      placeholder="Search by name..."
+      [(ngModel)]="filter"
+      style="min-width: 220px"
+    />
   </div>
 
-  <p-table
-    [value]="filtered()"
-    [paginator]="true" [rows]="10"
-    sortMode="multiple"
-    responsiveLayout="scroll"
-  >
-    <ng-template pTemplate="header">
-      <tr>
-        <th pSortableColumn="name">User <p-sortIcon field="name"/></th>
-        <th pSortableColumn="week">Week # <p-sortIcon field="week"/></th>
-        <th *ngFor="let day of days; let i = index" [pTooltip]="dateTips[i]" tooltipPosition="top">
-          {{ day }} <i class="pi pi-info-circle text-xs"></i>
-        </th>
-      </tr>
-    </ng-template>
+  <div>
+    <button
+      pButton
+      type="button"
+      class="p-button-success"
+      icon="pi pi-file-export"
+      label="Export"
+      (click)="exportTelegram()"
+    ></button>
+  </div>
+</div>
 
-    <ng-template pTemplate="body" let-row>
-      <tr>
-        <td>{{ row.name }}</td>
-        <td>{{ row.week }}</td>
-        <td *ngFor="let _ of days; let i = index">
-          <p-checkbox [(ngModel)]="row.days[i]" binary="true" (ngModelChange)="save(row)"></p-checkbox>
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
+<p-table
+  [value]="filtered()"
+  [rows]="50"
+  responsiveLayout="scroll"
+  [tableStyle]="{ 'min-width': '100%' }"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th class="text-center">#</th>
+      <th class="text-center">الاسم</th>
+      <th class="text-center">الأسبوع</th>
+      <th
+        *ngFor="let day of days; let i = index"
+        class="text-center"
+        [pTooltip]="dateTips[i]"
+        tooltipPosition="top"
+      >
+        {{ day }}
+      </th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-row>
+    <tr>
+      <td class="text-center">{{ row.id }}</td>
+      <td class="text-center">{{ row.name }}</td>
+      <td class="text-center">{{ row.week }}</td>
+      <td *ngFor="let _ of days; let i = index" class="text-center">
+        <p-checkbox
+          [(ngModel)]="row.days[i]"
+          binary="true"
+          (ngModelChange)="save(row)"
+        ></p-checkbox>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

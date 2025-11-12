@@ -6,5 +6,9 @@
     "quran": "Qur’an Memorisation Progress",
     "toggleDark": "Toggle Dark Mode",
     "language": "Language"
+  },
+  "weekTable": {
+    "searchPlaceholder": "Search by name...",
+    "exportTelegram": "Export to Telegram"
   }
 }
