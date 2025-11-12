@@ -49,7 +49,7 @@ interface UserRowWithId extends UserWeekRow {
 })
 export class WeekTable {
   filter = '';
-  days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  days = ['Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Mon', 'Tue'];
 
   private readonly initialNames = [
     'سناء بن عمر',
@@ -117,7 +117,10 @@ export class WeekTable {
   // 🟢 Export Telegram-style report
   exportTelegram() {
     const rows = this.filtered();
-    let output = '———~  ﷽ ~——— \n ✨ ملخص أوراد الأسبوع ✨\n 📖 مسار الذاريات - الماهرات بالقرآن 3 📖 \n 📅 جدول الأوراد 📋\n\n';
+    const weekLine = this.getWeekRangeArabic();
+    let output = '———~  ﷽ ~——— \n ✨ ملخص أوراد الأسبوع ✨'+
+    `\n ${weekLine} \n `+
+    '📖 مسار الذاريات - الماهرات بالقرآن 3 📖 \n 📅 جدول الأوراد 📋\n\n';
     let footer = '———~💎💎💎 ~———\n' + '> ✅: انجزت وردها\n' + '> ❌: لم تنجز وردها\n';
 
     for (const r of rows) {
@@ -144,4 +147,37 @@ export class WeekTable {
     const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
     return Math.ceil(((+date - +yearStart) / 86400000 + 1) / 7);
   }
+  private getWeekRangeArabic(): string {
+    const now = new Date();
+
+    // Find the latest week's Wednesday
+    const day = now.getDay(); // 0=Sun..6=Sat
+    const diffToPrevWednesday = (day >= 3) ? (day - 3) : (7 - (3 - day));
+    const wednesday = new Date(now);
+    wednesday.setDate(now.getDate() - diffToPrevWednesday);
+
+    // Then compute next Tuesday (6 days later)
+    const nextTuesday = new Date(wednesday);
+    nextTuesday.setDate(wednesday.getDate() + 6);
+
+    // Arabic day names
+    const days = [
+      'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'
+    ];
+
+    // Arabic month names
+    const months = [
+      'جانفي', 'فيفري', 'مارس', 'أفريل', 'ماي', 'جوان',
+      'جويلية', 'أوت', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
+    ];
+
+    // Format Arabic date string
+    const format = (d: Date) =>
+      `${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]}`;
+
+    const year = wednesday.getFullYear();
+
+    return `الأسبوع من ${format(wednesday)} إلى ${format(nextTuesday)} ${year}`;
+  }
+
 }
