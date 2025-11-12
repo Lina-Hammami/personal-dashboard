@@ -2,6 +2,8 @@ import { Component, signal, inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { RouterOutlet } from '@angular/router';
 import { Topbar } from './layout/topbar/topbar';
+import { PrimeNG } from 'primeng/config';
+import Aura from '@primeuix/themes/aura'; // ✅ pick any: Lara, Nora, Material, etc.
 
 @Component({
   selector: 'app-root',
@@ -12,6 +14,7 @@ import { Topbar } from './layout/topbar/topbar';
 })
 export class App {
   private translate = inject(TranslateService);
+  private primeng = new PrimeNG(); // ✅ create PrimeNG instance for runtime theme change
   isDark = signal(false);
 
   constructor() {
@@ -19,7 +22,7 @@ export class App {
     this.setLang(savedLang);
 
     const savedTheme = localStorage.getItem('theme') || 'light';
-    document.body.classList.toggle('p-input-filled', true); // nicer inputs
+    document.body.classList.toggle('p-input-filled', true);
     this.applyTheme(savedTheme === 'dark');
   }
 
@@ -39,20 +42,13 @@ export class App {
     this.isDark.set(dark);
     localStorage.setItem('theme', dark ? 'dark' : 'light');
 
-    // Swap theme css at runtime (Lara light/dark)
-    const head = document.head;
-    let link = document.getElementById('theme-css') as HTMLLinkElement | null;
+    this.primeng.onThemeChange({
+      preset: Aura,
+      options: {
+        darkMode: dark
+      }
+    });
 
-    if (!link) {
-      link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.id = 'theme-css';
-      head.appendChild(link);
-    }
-
-    link.href = dark
-      ? '@primeng/themes/lara/dark-blue/theme.css'
-      : '@primeng/themes/lara/light-blue/theme.css';
-
+    document.documentElement.classList.toggle('app-dark', dark);
   }
 }
