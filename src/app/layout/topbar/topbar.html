@@ -1,21 +1,33 @@
-<ng-container *ngIf="isBrowser">
-  <p-menubar [model]="items">
-    <ng-template pTemplate="start">
-      <div class="flex items-center gap-2 px-2">
-        <i class="pi pi-list-check"></i>
-        <span class="font-semibold">Academia Lists</span>
-      </div>
-    </ng-template>
 
-    <ng-template pTemplate="end">
-      <p-tieredMenu #menu [model]="configMenu" [popup]="true"></p-tieredMenu>
-      <button
-        pButton
-        type="button"
-        class="p-button-text"
-        (click)="menu.toggle($event)">
-        <i class="pi pi-cog text-xl"></i>
-      </button>
-    </ng-template>
-  </p-menubar>
-</ng-container>
+<p-menubar [model]="items">
+  <!-- LEFT (start slot) -->
+  <ng-template pTemplate="start">
+    <a routerLink="/" class="flex items-center gap-2 no-underline">
+      <i class="pi pi-th-large text-xl"></i>
+      <span class="font-bold">Academia Lists</span>
+    </a>
+  </ng-template>
+
+  <!-- RIGHT (end slot) -->
+  <ng-template pTemplate="end">
+    <!-- 🌐 language -->
+    <p-tieredMenu #langs [model]="langMenu" [popup]="true"></p-tieredMenu>
+    <button
+      pButton
+      type="button"
+      class="p-button-text"
+      (click)="langs.toggle($event)">
+      <i class="pi pi-globe text-xl"></i>
+    </button>
+
+    <!-- ⚙️ settings -->
+    <p-tieredMenu #settings [model]="settingsMenu" [popup]="true"></p-tieredMenu>
+    <button
+      pButton
+      type="button"
+      class="p-button-text"
+      (click)="settings.toggle($event)">
+      <i class="pi pi-cog text-xl"></i>
+    </button>
+  </ng-template>
+</p-menubar>
